@@ -1,0 +1,8 @@
+"AddonInfo"
+{
+	"name"				"Helpers"
+	"author_name"			"!cake"
+	"author_email"			"cakenotfound@googlemail.com"
+	"info"				"Various useful scripts."
+	"override"			"0"
+}
