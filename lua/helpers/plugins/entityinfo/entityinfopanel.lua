@@ -104,7 +104,7 @@ function PANEL:DoEntityTrace ()
 	local trace = util.GetPlayerTrace (LocalPlayer ())
 	local delta = (trace.endpos - trace.start)
 	trace.endpos = trace.start + (delta:GetNormalized ()) * ((32768 ^ 2 * 3) ^ 0.5)
-	local tr = util.TraceLine (trace)
+	local tr = util.TraceLine (trace) or {}
 	if tr.HitNonWorld then
 		if not LocalPlayer ():InVehicle () then
 			return tr.Entity
