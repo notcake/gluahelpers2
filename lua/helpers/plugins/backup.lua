@@ -21,14 +21,16 @@ function self:OnEnable ()
 	end
 	
 	self.Data.hook.Delete = function (fileName, ...)
-		if file.Exists (fileName, "DATA", ...) then
+		if file.Exists (fileName, "DATA", ...) and
+		   self:ShouldBackup (fileName) then
 			self:Backup (fileName, ...)
 		end
 		self.Data.file.Delete (fileName, ...)
 	end
 
 	self.Data.hook.Write = function (fileName, fileContents, ...)
-		if file.Exists (fileName, "DATA", ...) then
+		if file.Exists (fileName, "DATA", ...) and
+		   self:ShouldBackup (fileName) then
 			self:Backup (fileName, ...)
 		end
 		self.Data.file.Write (fileName, fileContents, ...)
@@ -68,4 +70,10 @@ function self:Backup (filePath, ...)
 	
 	local backupPath = backupDirectory .. formattedDate .. "_" .. fileName
 	self.Data.file.Write (backupPath, fileContents, ...)
+end
+
+function self:ShouldBackup (filePath)
+	if string.find (filePath, "^pac3_cache/") then return false end
+	
+	return true
 end
